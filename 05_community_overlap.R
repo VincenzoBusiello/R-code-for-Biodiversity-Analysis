@@ -12,7 +12,7 @@ data (kerinci)
 
 head (kerinci) 
 
-# to have information about each colon type summary
+# to have information about each column type summary
 
 summary (kerinci)
 
