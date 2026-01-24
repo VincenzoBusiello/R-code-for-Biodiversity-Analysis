@@ -11,7 +11,7 @@ library(patchwork) # for multiple grapsh on a single plot
 ### 1st Case Study - Bourgneuf Bay, France - Zostera noltei
 
 # setting the working directory 
-setwd("C:/SEexam/francia1")
+setwd("C:/SEexam/bourgneuf")
 
 # checking if there are all the needed files in the selected directory
 
@@ -31,37 +31,95 @@ for (i in files)
 # 3) Green
 # 4) NIR
 
-images <- c("fb4.tiff", "fb3.tiff", "fb2.tiff", "fb8.tiff")
 
-fb <- vector("list", length(images))
 
-for (j in seq_along(images))
+i_20 <- c("bn20_4.tiff", "bn20_3.tiff", "bn20_2.tiff", "bn20_8.tiff")
+i_23 <- c("bn23_4.tiff", "bn23_3.tiff", "bn23_2.tiff", "bn23_8.tiff")
+i_25 <- c("bn25_4.tiff", "bn25_3.tiff", "bn25_2.tiff", "bn25_8.tiff")
+
+
+bn_20 <- vector("list", length(i_20))
+bn_23 <- vector("list", length(i_23))
+bn_25 <- vector("list", length(i_25))
+
+
+
+# for loops for the creation of objects with 4 spectral bands, one each year. 
+
+## September 2020
+for (j in seq_along(i_20))
   {
-    fb[[j]] <- rast(images[j])
+    bn_20[[j]] <- rast(i_20[j])
   }
-## at this point, fb is a list of data. 
-
 ## let's transform it in a spat raster! 
-fb_r <- rast(fb)
-fb_r
+rbn_20 <- rast(bn_20)
+rbn_20
+
+
+## September 2023
+for (j in seq_along(i_23))
+  {
+    bn_23[[j]] <- rast(i_23[j])
+  }
+rbn_23 <- rast(bn_23)
+rbn_23
+
+
+## September 2025
+for (j in seq_along(i_25))
+  {
+    bn_25[[j]] <- rast(i_25[j])
+  }
+rbn_25 <- rast(bn_25)
+rbn_25
+
+par(mfrow=c(3,2))
+# plotting the fb_r in true color
+im.plotRGB(rbn_20, 1,2,3)
+# plotting the fb_r whit NIR band in red
+im.plotRGB(rbn_20, 4,2,3)
 
 # plotting the fb_r in true color
-im.plotRGB(fb_r, 1,2,3)
+im.plotRGB(rbn_23, 1,2,3)
 # plotting the fb_r whit NIR band in red
-im.plotRGB(fb_r, 4,2,3)
+im.plotRGB(rbn_23, 4,2,3)
+
+# plotting the fb_r in true color
+im.plotRGB(rbn_25, 1,2,3)
+# plotting the fb_r whit NIR band in red
+im.plotRGB(rbn_25, 4,2,3)
 
 dev.off()
 
-par(mfrow=c(1,2))
-im.plotRGB(fb_r, 1,2,3)
-im.plotRGB(fb_r, 4,2,3)
+# calculating NDVI bn20
+rbn_20_dif = rbn_20[[4]] - rbn_20[[3]]
+rbn_20_sum = rbn_20[[4]] + rbn_20[[3]]
+rbn_20_NDAVI = rbn_20_dif / rbn_20_sum
 
+# calculating NDVI bn23
+rbn_23_dif = rbn_23[[4]] - rbn_23[[3]]
+rbn_23_sum = rbn_23[[4]] + rbn_23[[3]]
+rbn_23_NDAVI = rbn_23_dif / rbn_23_sum
 
-# calculating NDVI 
-fb_dif = fb_r[[4]] - fb_r[[1]]
-fb_sum = fb_r[[4]] + fb_r[[1]]
-fbNDVI = fb_dif / fb_sum
+# calculating NDVI bn25
+rbn_25_dif = rbn_25[[4]] - rbn_25[[3]]
+rbn_25_sum = rbn_25[[4]] + rbn_25[[3]]
+rbn_25_NDAVI = rbn_25_dif / rbn_25_sum
 
-par(mfrow=c(2,1))
-plot(fb_r, col=viridis(100))
-plot(fbNDVI, col=viridis(100))
+## visualising each true color image with NDVI image
+par(mfrow=c(3,3))
+im.plotRGB(rbn_20, 1,2,3)
+plot(rbn_20_NDAVI)
+plot(rbn_20_NDAVI, col=viridis(100))
+im.plotRGB(rbn_23, 1,2,3)
+plot(rbn_23_NDAVI)
+plot(rbn_23_NDAVI, col=viridis(100))
+im.plotRGB(rbn_25, 1,2,3)
+plot(rbn_25_NDAVI)
+plot(rbn_25_NDAVI, col=viridis(100))
+
+# classification
+cl_rbn_20_NDAVI <- im.classify(rbn_20_NDAVI, num_cluster=3)
+cl_rbn_23_NDAVI <- im.classify(rbn_23_NDAVI, num_cluster=3)
+cl_rbn_25_NDAVI <- im.classify(rbn_25_NDAVI, num_cluster=3)
+
