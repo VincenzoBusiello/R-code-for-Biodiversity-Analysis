@@ -91,22 +91,22 @@ im.plotRGB(rbn_25, 4,2,3)
 
 dev.off()
 
-# calculating NDVI bn20
+# calculating NDAVI bn20
 rbn_20_dif = rbn_20[[4]] - rbn_20[[3]]
 rbn_20_sum = rbn_20[[4]] + rbn_20[[3]]
 rbn_20_NDAVI = rbn_20_dif / rbn_20_sum
 
-# calculating NDVI bn23
+# calculating NDAVI bn23
 rbn_23_dif = rbn_23[[4]] - rbn_23[[3]]
 rbn_23_sum = rbn_23[[4]] + rbn_23[[3]]
 rbn_23_NDAVI = rbn_23_dif / rbn_23_sum
 
-# calculating NDVI bn25
+# calculating NDAVI bn25
 rbn_25_dif = rbn_25[[4]] - rbn_25[[3]]
 rbn_25_sum = rbn_25[[4]] + rbn_25[[3]]
 rbn_25_NDAVI = rbn_25_dif / rbn_25_sum
 
-## visualising each true color image with NDVI image
+## visualising each true color image next to NDAVI image (normally used colors and viridis palette)
 par(mfrow=c(3,3))
 im.plotRGB(rbn_20, 1,2,3)
 plot(rbn_20_NDAVI)
@@ -118,8 +118,36 @@ im.plotRGB(rbn_25, 1,2,3)
 plot(rbn_25_NDAVI)
 plot(rbn_25_NDAVI, col=viridis(100))
 
-# classification
-cl_rbn_20_NDAVI <- im.classify(rbn_20_NDAVI, num_cluster=3)
-cl_rbn_23_NDAVI <- im.classify(rbn_23_NDAVI, num_cluster=3)
-cl_rbn_25_NDAVI <- im.classify(rbn_25_NDAVI, num_cluster=3)
+# trying classification
+par(mfrow=c(2,3))
+cl_rbn_20_NDAVI <- im.classify(rbn_20_NDAVI, num_cluster=4)
+cl_rbn_23_NDAVI <- im.classify(rbn_23_NDAVI, num_cluster=4)
+cl_rbn_25_NDAVI <- im.classify(rbn_25_NDAVI, num_cluster=4)
+plot(rbn_20_NDAVI, col=viridis(100))
+plot(rbn_23_NDAVI, col=viridis(100))
+plot(rbn_25_NDAVI, col=viridis(100))
 
+
+# trying Water-Adjusted Vegetation Index - WAVI
+L = 0.5
+
+rbn_20_dif = rbn_20[[4]] - rbn_20[[3]]
+rbn_20_sum = rbn_20[[4]] + rbn_20[[3]]
+rbn_20_WAVI = (1+L)*(rbn_20_dif / (rbn_20_sum + L))
+
+rbn_23_dif = rbn_23[[4]] - rbn_23[[3]]
+rbn_23_sum = rbn_23[[4]] + rbn_23[[3]]
+rbn_23_WAVI = (1+L)*(rbn_23_dif / (rbn_23_sum + L))
+
+rbn_25_dif = rbn_25[[4]] - rbn_25[[3]]
+rbn_25_sum = rbn_25[[4]] + rbn_25[[3]]
+rbn_25_WAVI = (1+L)*(rbn_25_dif / (rbn_25_sum + L))
+
+
+par(mfrow=c(3,2))
+plot(rbn_20_WAVI, col = viridis(100))
+im.plotRGB(rbn_20, 1,2,3)
+plot(rbn_23_WAVI, col = viridis(100))
+im.plotRGB(rbn_23, 1,2,3)
+plot(rbn_25_WAVI, col = viridis(100))
+im.plotRGB(rbn_25, 1,2,3)
