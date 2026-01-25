@@ -1,0 +1,244 @@
+\documentclass{beamer} % classe di documenti per poter creare le presentazioni che in questo linguaggio vengono definite come frame. 
+\usepackage{graphicx} % Package necessario per utilizzare immagini
+\usepackage{listings} % Pacchetto che può essere utilizzato per caricare degli algoritmi direttamente dagli script.
+\usepackage{multicol}
+\usepackage{url}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+
+
+\usetheme{AnnArbor}
+\usecolortheme{seahorse}
+
+\title{Variazione della superficie del Lago Laceno}
+\author{Vincenzo Busiello}
+\date{19 Giugno 2024}
+
+\begin{document}
+
+\maketitle
+
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Outline}    
+    \tableofcontents[currentsection]
+\end{frame}
+}
+
+\section{Lago Laceno}
+
+        \begin{frame}{Lago Laceno}
+            \begin{multicols}{2}
+                \begin{itemize}
+                    \item {\scriptsize 1100 m s.l.m.} 
+                    \item {\scriptsize Bagnoli Irpino (AV)}
+                    \item {\scriptsize Parco Regionale dei Monti Picentini.}
+                \end{itemize}
+            \columnbreak
+                \begin{center}
+                    \includegraphics[width=0.40\textwidth]{LagoLaceno.jpg}
+                \end{center}
+            \end{multicols}
+        \end{frame}
+
+        \begin{frame}{Sempre più piccolo...}
+            \begin{multicols}{2}
+                \begin{itemize}
+                    \item {\scriptsize Bonifiche all'inizio del secolo scorso} 
+                    \item {\scriptsize Terremoto dell'Irpinia del 1980}
+                    \item {\scriptsize Eventi di siccità sempre più frequenti}
+                \end{itemize}
+            \columnbreak
+                \begin{center}
+                    \includegraphics[width=0.40\textwidth]{Lago-Laceno-33.jpg}
+                \end{center}
+            \end{multicols}
+        \end{frame}
+
+        \begin{frame}{Perché questo progetto?}
+            \begin{multicols}{2}                
+                \begin{center}
+                    \includegraphics[width=0.40\textwidth]{homer.png}
+                \end{center}
+            \columnbreak
+                \begin{itemize}
+                    \item La superficie del lago è cambiata negli ultimi anni?
+                    \item C'è una variazione stagionale? Se sì, di quanto?
+                    \item La variazione stagionale è sempre presente?
+                \end{itemize}
+            \end{multicols}
+        \end{frame}
+
+
+\section{Dati e Codice}
+
+
+        \begin{frame}{Dati}
+            \begin{center}
+            Le immagini utilizzate per questo progetto sono state scaricate dal sito \url{https://browser.dataspace.copernicus.eu} utilizzando i seguenti criteri:
+                \begin{itemize}
+                    \item E' stata selezionata un'area che comprende il lago oggetto d'esame
+                    \item Date di confronto: estate - inverno dal 2017 al 2020
+                    \item Copertura di nuvole minore del 10\%
+                    \item Minor copertura di neve
+                    \item Download delle bande 2,3,4 e 8 in formato .tiff 16 bit
+                \end{itemize}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{Esempio del sito di studio}
+                \begin{multicols}{2}
+                    \begin{center}
+                        \includegraphics[width=0.25\textwidth]{es2017.jpg}\\
+                        \caption{{\scriptsize Estate 2017}}\\
+                \columnbreak
+                        \includegraphics[width=0.25\textwidth]{in2017.jpg}\\
+                        \caption{{\scriptsize Inverno 2017}}\\
+                    \end{center}
+                \end{multicols}
+        \end{frame}
+        
+        \begin{frame}{Normalized Difference Water Index}
+            \begin{equation}
+                NDWI = \frac{(GREEN - NIR)}{(GREEN + NIR)}
+            \end{equation}
+        \end{frame}
+        
+        \begin{frame}{Pacchetti}
+            \begin{itemize}
+                \item    \texttt{library(terra)} 
+                \item    \texttt{library(imageRy)} 
+                \item    \texttt{library(viridis)}
+                \item    \texttt{library(ggplot2)} 
+                \item    \texttt{library(patchwork)}
+            \end{itemize}
+        \end{frame}
+        
+            \begin{frame}{Funzioni}
+                \begin{multicols}{2}
+                    \begin{itemize}
+                        \item    \texttt{setwd()} 
+                        \item    \texttt{rast()} 
+                        \item    \texttt{c()}
+                        \item    \texttt{par()} 
+                        \item    \texttt{im.plotRGB()}
+                        \item    \texttt{plot()}
+                        \item    \texttt{im.classify()}
+                        \item    \texttt{ncell()}
+                        \item    \texttt{freq()}
+                \columnbreak
+                        \item    \texttt{data.frame()}
+                        \item    \texttt{View()}
+                        \item    \texttt{ggplot()}
+                        \item    \texttt{aes()}
+                        \item    \texttt{geom_boxplot()}
+                        \item    \texttt{ylim()}
+                        \item    \texttt{xlab()}
+                        \item    \texttt{ylab()}
+                        \item    \texttt{ggtitle()}
+                    \end{itemize}
+                \end{multicols}
+        \end{frame}
+        
+        \begin{frame}{TrueColor - Codice}
+            \lstinputlisting[language=R, firstline=82, lastline=90, commentstyle=\color{mygreen}, basicstyle=\footnotesize]{ScriptEsame.R}
+        \end{frame}
+
+        \begin{frame}{TrueColor - Immagine}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{TrueColor.png}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{FalseColor - Codice}
+            \lstinputlisting[language=R, firstline=94, lastline=102, commentstyle=\color{mygreen}, basicstyle=\footnotesize]{ScriptEsame.R}
+        \end{frame}
+        
+        \begin{frame}{FalseColor - Immagine}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{FalseColor.png}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{NDWI - Codice}
+            \lstinputlisting[language=R, firstline=111, lastline=120, commentstyle=\color{mygreen}, basicstyle=\footnotesize]{ScriptEsame.R}
+        \end{frame}
+
+        \begin{frame}{NDWI - Immagine}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{ViridisNDWI.png}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{Classificazione - Codice}
+            \lstinputlisting[language=R, firstline=180, lastline=188, commentstyle=\color{mygreen}, basicstyle=\tiny]{ScriptEsame.R}
+        \end{frame}
+
+        \begin{frame}{Classificazione - Immagine}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{ClassificazioneDEF.png}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{Percentuali di Copertura Divise per Classi}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{tabellaLac.png}
+            \end{center} 
+        \end{frame}
+        
+        \begin{frame}{Boxplot Superfici Classificate}
+            \begin{center}
+                \includegraphics[width=1\textwidth]{boxplot.png}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{Boxplot Superficie del Lago}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{GrafAcqua.png}
+            \end{center}
+        \end{frame}
+
+\section{Conclusioni}
+
+        \begin{frame}{Conclusioni}
+            \begin{itemize}
+                \item La superficie del lago varia nel periodo 2017-2020. In questi anni lo specchio d'acqua ha ridotto le dimensioni nel periodo estivo mentre nel periodo invernale non sembra seguire un andamento preciso. 
+                \item Le diverse dimensioni del lago potrebbero essere legate ai livelli di precipitazione. Queste appaiono progressivamente minori per periodi estivi; le dimensioni invernali sembrano essere legate alle precipitazioni dell'anno precedente. 
+            \end{itemize}
+        \end{frame}
+
+                \begin{frame}{Conclusioni}
+            \begin{itemize}
+                \item Invece, nel 2018 vi è una differenza sostanziale rispetto agli altri anni: la superficie del lago è minore nella stagione invernale rispetto alla stagione estiva; confrontando temperature e precipitazioni medie pare non ci sia alcun legame con tale situazione.
+                \item Sarebbbe interessante vedere i trend del lago negli anni precedenti e postumi al periodo preso in esame per confermare o meno il trend. 
+            \end{itemize}
+        \end{frame}
+        
+\section{Sitografia}
+        \begin{frame}{Sitografia}
+            \begin{itemize}
+                \item \url{https://browser.dataspace.copernicus.eu} \\
+                \item \url{https://centrofunzionale.regione.campania.it/#/pages/sensori/archivio-pluviometrici} \\
+                \item \url{https://en.wikipedia.org/wiki/Normalized_difference_water_index}\\
+            \end{itemize}  
+        \end{frame}
+
+\section{Ringraziamenti}
+        \begin{frame}{Ringraziamenti}
+            \begin{center}
+                {\huge Grazie per l'attenzione!}\\
+                \bigskip
+                \bigskip
+                \bigskip
+                \bigskip
+                \bigskip
+                \bigskip
+                \bigskip
+                \bigskip
+                \url{https://github.com/VincenzoBusiello}
+            \end{center}
+        \end{frame}
+
+
+\end{document}
