@@ -120,16 +120,99 @@ plot(rbn_25_NDAVI, col=viridis(100))
 
 # trying classification
 par(mfrow=c(2,3))
-cl_rbn_20_NDAVI <- im.classify(rbn_20_NDAVI, num_cluster=4)
-cl_rbn_23_NDAVI <- im.classify(rbn_23_NDAVI, num_cluster=4)
-cl_rbn_25_NDAVI <- im.classify(rbn_25_NDAVI, num_cluster=4)
+cl_rbn_20_NDAVI <- im.classify(rbn_20_NDAVI, num_cluster=3)
+cl_rbn_23_NDAVI <- im.classify(rbn_23_NDAVI, num_cluster=3)
+cl_rbn_25_NDAVI <- im.classify(rbn_25_NDAVI, num_cluster=3)
 plot(rbn_20_NDAVI, col=viridis(100))
 plot(rbn_23_NDAVI, col=viridis(100))
 plot(rbn_25_NDAVI, col=viridis(100))
 
+            ### 1st classification: 
+#1) water                 -->    35.957301 %
+#2) aquatic vegetation    -->    61.005755 %
+#3) land vegetation       -->     3.036944 %
+
+            ### 2nd classification: 
+#1) aquatic vegetation    -->    29.590609 %
+#2) water                 -->    65.540797 %
+#3) land vegetation       -->     4.868594 %
+
+            ### 3rd classification: 
+#1) water                 -->    58.79595 %
+#2) land vegetation       -->     4.22179 %
+#3) aquatic vegetation    -->    36.98226 %
+
+
+#percentages of classes found in 2020
+t_bn20 <- ncell(cl_rbn_20_NDAVI)
+f_bn20 <- freq(cl_rbn_20_NDAVI)
+p_bn20 = f_bn20 / t_bn20
+perc_bn20 = p_bn20*100
+perc_bn20
+
+#percentages of classes found in 2020
+t_bn23 <- ncell(cl_rbn_23_NDAVI)
+f_bn23 <- freq(cl_rbn_23_NDAVI)
+p_bn23 = f_bn23 / t_bn23
+perc_bn23 = p_bn23*100
+perc_bn23
+
+#percentages of classes found in 2020
+t_bn25 <- ncell(cl_rbn_25_NDAVI)
+f_bn25 <- freq(cl_rbn_25_NDAVI)
+p_bn25 = f_bn25 / t_bn25
+perc_bn25 = p_bn25*100
+perc_bn25
+
+            ### 1st classification: 
+#1) water                 -->    35.957301 %
+#2) aquatic vegetation    -->    61.005755 %
+#3) land vegetation       -->     3.036944 %
+
+            ### 2nd classification: 
+#1) aquatic vegetation    -->    29.590609 %
+#2) water                 -->    65.540797 %
+#3) land vegetation       -->     4.868594 %
+
+            ### 3rd classification: 
+#1) water                 -->    58.79595 %
+#2) land vegetation       -->     4.22179 %
+#3) aquatic vegetation    -->    36.98226 %
+
+years <- c("2020", "2023", "2025")
+a_veg <- c(61.01, 29.59, 36.98) # percentages of aquatic vegetation
+l_veg <- c(3.04, 4.87, 4.22) # percentages of land vegetation
+water <- c(35.96, 65.54, 58.80) # percentages of water
+
+
+tab <- data.frame(years, water, a_veg, l_veg)
+View(tab)
+
+pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + 
+geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
+ylim(c(0,100)) + 
+xlab("Year") +
+ylab("Aquatic vegetation (%)") +
+ggtitle("Aquatic vegetation in the 2020s")
+
+pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) + 
+geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
+ylim(c(0,100)) + 
+xlab("Year") +
+ylab("Land vegetation (%)") +
+ggtitle("Land vegetation in the 2020s")
+
+pwater <- ggplot(tab, aes(x=years, y=water, color=years)) + 
+geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
+ylim(c(0,100)) + 
+xlab("Year") +
+ylab("Water extension (%)") +
+ggtitle("Water extension in the 2020s")
+
+pa_veg + pl_veg + pwater
 
 # trying Water-Adjusted Vegetation Index - WAVI
-L = 0.5
+L = 0.7
 
 rbn_20_dif = rbn_20[[4]] - rbn_20[[3]]
 rbn_20_sum = rbn_20[[4]] + rbn_20[[3]]
@@ -151,3 +234,8 @@ plot(rbn_23_WAVI, col = viridis(100))
 im.plotRGB(rbn_23, 1,2,3)
 plot(rbn_25_WAVI, col = viridis(100))
 im.plotRGB(rbn_25, 1,2,3)
+
+par(mfrow=c(1,3))
+cl_rbn_20_WAVI <- im.classify(rbn_20_WAVI, num_cluster=4)
+cl_rbn_23_WAVI <- im.classify(rbn_23_WAVI, num_cluster=4)
+cl_rbn_25_WAVI <- im.classify(rbn_25_WAVI, num_cluster=4)
