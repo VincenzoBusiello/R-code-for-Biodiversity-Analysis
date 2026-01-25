@@ -74,19 +74,19 @@ rbn_25 <- rast(bn_25)
 rbn_25
 
 par(mfrow=c(3,2))
-# plotting the fb_r in true color
+# plotting the rbn_20 in true color
 im.plotRGB(rbn_20, 1,2,3)
-# plotting the fb_r whit NIR band in red
+# plotting the rbn_20 whit NIR band in red
 im.plotRGB(rbn_20, 4,2,3)
 
-# plotting the fb_r in true color
+# plotting the rbn_23 in true color
 im.plotRGB(rbn_23, 1,2,3)
-# plotting the fb_r whit NIR band in red
+# plotting the rbn_23 whit NIR band in red
 im.plotRGB(rbn_23, 4,2,3)
 
-# plotting the fb_r in true color
+# plotting the rbn_25 in true color
 im.plotRGB(rbn_25, 1,2,3)
-# plotting the fb_r whit NIR band in red
+# plotting the rbn_25 whit NIR band in red
 im.plotRGB(rbn_25, 4,2,3)
 
 dev.off()
@@ -106,7 +106,7 @@ rbn_25_dif = rbn_25[[4]] - rbn_25[[3]]
 rbn_25_sum = rbn_25[[4]] + rbn_25[[3]]
 rbn_25_NDAVI = rbn_25_dif / rbn_25_sum
 
-## visualising each true color image next to NDAVI image (normally used colors and viridis palette)
+## visualising each true color image next to NDAVI image (standard and viridis palette)
 par(mfrow=c(3,3))
 im.plotRGB(rbn_20, 1,2,3)
 plot(rbn_20_NDAVI)
@@ -118,7 +118,7 @@ im.plotRGB(rbn_25, 1,2,3)
 plot(rbn_25_NDAVI)
 plot(rbn_25_NDAVI, col=viridis(100))
 
-# trying classification
+# classification
 par(mfrow=c(2,3))
 cl_rbn_20_NDAVI <- im.classify(rbn_20_NDAVI, num_cluster=3)
 cl_rbn_23_NDAVI <- im.classify(rbn_23_NDAVI, num_cluster=3)
@@ -126,21 +126,6 @@ cl_rbn_25_NDAVI <- im.classify(rbn_25_NDAVI, num_cluster=3)
 plot(rbn_20_NDAVI, col=viridis(100))
 plot(rbn_23_NDAVI, col=viridis(100))
 plot(rbn_25_NDAVI, col=viridis(100))
-
-            ### 1st classification: 
-#1) water                 -->    35.957301 %
-#2) aquatic vegetation    -->    61.005755 %
-#3) land vegetation       -->     3.036944 %
-
-            ### 2nd classification: 
-#1) aquatic vegetation    -->    29.590609 %
-#2) water                 -->    65.540797 %
-#3) land vegetation       -->     4.868594 %
-
-            ### 3rd classification: 
-#1) water                 -->    58.79595 %
-#2) land vegetation       -->     4.22179 %
-#3) aquatic vegetation    -->    36.98226 %
 
 
 #percentages of classes found in 2020
