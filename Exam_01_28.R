@@ -106,17 +106,15 @@ rbn_25_dif = rbn_25[[4]] - rbn_25[[3]]
 rbn_25_sum = rbn_25[[4]] + rbn_25[[3]]
 rbn_25_NDAVI = rbn_25_dif / rbn_25_sum
 
-## visualising each true color image next to NDAVI image (standard and viridis palette)
-par(mfrow=c(3,3))
-im.plotRGB(rbn_20, 1,2,3)
-plot(rbn_20_NDAVI)
-plot(rbn_20_NDAVI, col=viridis(100))
-im.plotRGB(rbn_23, 1,2,3)
-plot(rbn_23_NDAVI)
-plot(rbn_23_NDAVI, col=viridis(100))
-im.plotRGB(rbn_25, 1,2,3)
-plot(rbn_25_NDAVI)
-plot(rbn_25_NDAVI, col=viridis(100))
+## visualising each NDAVI image (standard and viridis palette)
+par(mfrow=c(3,2))
+plot(rbn_20_NDAVI, main="NDAVI 2020")
+plot(rbn_20_NDAVI, col=viridis(100), main="NDAVI 2020 - colorblind")
+plot(rbn_23_NDAVI, main="NDAVI 2023")
+plot(rbn_23_NDAVI, col=viridis(100), main="NDAVI 2023 - colorblind")
+plot(rbn_25_NDAVI, main="NDAVI 2025")
+plot(rbn_25_NDAVI, col=viridis(100), main="NDAVI 2025 - colorblind")
+
 
 # classification
 par(mfrow=c(2,3))
@@ -128,21 +126,21 @@ plot(rbn_23_NDAVI, col=viridis(100))
 plot(rbn_25_NDAVI, col=viridis(100))
 
 
-#percentages of classes found in 2020
+## percentages of classes found in 2020
 t_bn20 <- ncell(cl_rbn_20_NDAVI)
 f_bn20 <- freq(cl_rbn_20_NDAVI)
 p_bn20 = f_bn20 / t_bn20
 perc_bn20 = p_bn20*100
 perc_bn20
 
-#percentages of classes found in 2020
+## percentages of classes found in 2020
 t_bn23 <- ncell(cl_rbn_23_NDAVI)
 f_bn23 <- freq(cl_rbn_23_NDAVI)
 p_bn23 = f_bn23 / t_bn23
 perc_bn23 = p_bn23*100
 perc_bn23
 
-#percentages of classes found in 2020
+## percentages of classes found in 2020
 t_bn25 <- ncell(cl_rbn_25_NDAVI)
 f_bn25 <- freq(cl_rbn_25_NDAVI)
 p_bn25 = f_bn25 / t_bn25
@@ -173,38 +171,29 @@ water <- c(35.96, 65.54, 58.80) # percentages of water
 tab <- data.frame(years, water, a_veg, l_veg)
 View(tab)
 
-pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + 
-geom_histogram(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
-ylim(c(0,100)) + 
-xlab("Year") +
-ylab("Aquatic vegetation (%)") +
-ggtitle("Aquatic vegetation in the 2020s")
-
-pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) + 
-geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
-ylim(c(0,100)) + 
-xlab("Year") +
-ylab("Land vegetation (%)") +
-ggtitle("Land vegetation in the 2020s")
+# creating histograms to show collected data
 
 pwater <- ggplot(tab, aes(x=years, y=water, color=years)) + 
-geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
-ylim(c(0,100)) + 
-xlab("Year") +
-ylab("Water extension (%)") +
-ggtitle("Water extension in the 2020s")
-
-pa_veg + pl_veg + pwater
-
-pwater <- ggplot(tab, aes(x=years, y=water, color=water)) + 
-            geom_bar(stat="identity", fill=years) +
+            geom_bar(stat="identity", fill="white") +
             ylim(c(0,100)) + 
             xlab("Year") +
-            ylab("Water extension (%)") +
-            ggtitle("Water extension in the 2020s") +
+            ylab("Water (%)") + 
             scale_colour_viridis_d(option = "plasma")
 
-pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + geom_bar(stat="identity", fill="white")
-pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) + geom_bar(stat="identity", fill="white")
+pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + 
+            geom_bar(stat="identity", fill="white") +
+            ylim(c(0,100)) + 
+            xlab("Year") +
+            ylab("Aquatic Vegetation (%)") + 
+            scale_colour_viridis_d(option = "plasma")
 
-pwater + pa_veg + pl_veg
+
+pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) + 
+            geom_bar(stat="identity", fill="white") +
+            ylim(c(0,100)) + 
+            xlab("Year") +
+            ylab("Land Vegetation (%)") + 
+            scale_colour_viridis_d(option = "plasma")
+
+
+pwater + pa_veg + pl_veg 
