@@ -4,7 +4,7 @@
 
 library(terra) # used for spatial data life raster or vector data
 library(imageRy) # handling raster images
-library(gglot2)# for graphs
+library(ggplot2)# for graphs
 library(viridis) # alternative color palettes 
 library(patchwork) # for multiple grapsh on a single plot
 
@@ -174,7 +174,7 @@ tab <- data.frame(years, water, a_veg, l_veg)
 View(tab)
 
 pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + 
-geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
+geom_histogram(outlier.colour="red", outlier.shape=8, outlier.size=4)+ 
 ylim(c(0,100)) + 
 xlab("Year") +
 ylab("Aquatic vegetation (%)") +
@@ -196,3 +196,15 @@ ggtitle("Water extension in the 2020s")
 
 pa_veg + pl_veg + pwater
 
+pwater <- ggplot(tab, aes(x=years, y=water, color=water)) + 
+            geom_bar(stat="identity", fill=years) +
+            ylim(c(0,100)) + 
+            xlab("Year") +
+            ylab("Water extension (%)") +
+            ggtitle("Water extension in the 2020s") +
+            scale_colour_viridis_d(option = "plasma")
+
+pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + geom_bar(stat="identity", fill="white")
+pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) + geom_bar(stat="identity", fill="white")
+
+pwater + pa_veg + pl_veg
