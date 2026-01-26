@@ -178,14 +178,14 @@ pwater <- ggplot(tab, aes(x=years, y=water, color=years)) +
             ylim(c(0,100)) + 
             xlab("Year") +
             ylab("Water (%)") + 
-            scale_colour_viridis_d(option = "plasma")
+            scale_colour_viridis_d(option = "cividis")
 
 pa_veg <- ggplot(tab, aes(x=years, y=a_veg, color=years)) + 
             geom_bar(stat="identity", fill="white") +
             ylim(c(0,100)) + 
             xlab("Year") +
             ylab("Aquatic Vegetation (%)") + 
-            scale_colour_viridis_d(option = "plasma")
+            scale_colour_viridis_d(option = "cividis")
 
 
 pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) + 
@@ -193,7 +193,7 @@ pl_veg <- ggplot(tab, aes(x=years, y=l_veg, color=years)) +
             ylim(c(0,100)) + 
             xlab("Year") +
             ylab("Land Vegetation (%)") + 
-            scale_colour_viridis_d(option = "plasma")
+            scale_colour_viridis_d(option = "cividis")
 
 
 pwater + pa_veg + pl_veg 
