@@ -21,11 +21,13 @@ setwd("C:/SEexam/bourgneuf")
 list.files()
 
 # creating a single object whit 4 images, which every one is a specific band, as follows:
-# 1) Red   -> bn20_4, bn23_4, bn25_4
-# 2) Blue  -> bn20_3, bn23_3, bn25_3
-# 3) Green -> bn20_2, bn23_2, bn25_2
-# 4) NIR   -> bn20_8, bn23_8, bn25_8
 
+    #__________|_________Names_____________#
+    #__Bands___| i_20   | i_23   | i_25    #
+    #__Red_____| bn20_4 | bn23_4 | bn25_4  #  
+    #__Blue____| bn20_3 | bn23_3 | bn25_3  #  
+    #__Green___| bn20_2 | bn23_2 | bn25_2  #  
+    #__NIR_____| bn20_8 | bn23_8 | bn25_8  #  
 
 
 i_20 <- c("bn20_4.tiff", "bn20_3.tiff", "bn20_2.tiff", "bn20_8.tiff")
