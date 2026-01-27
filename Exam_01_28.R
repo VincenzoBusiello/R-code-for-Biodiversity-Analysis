@@ -18,15 +18,7 @@ setwd("C:/SEexam/bourgneuf")
 
 # checking if there are all the needed files in the selected directory
 
-files <- list.files()
-for (i in files) 
-    {
-      print (i)
-        if (i == tail(files, n=1))
-          {
-            break
-          }    
-    }
+list.files()
 
 # creating a single object whit 4 images, which every one is a specific band, as follows:
 # 1) Red
