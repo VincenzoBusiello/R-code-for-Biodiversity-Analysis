@@ -1,6 +1,9 @@
-# The purpose of this code is to monitor the progress of two types of vegetation over the years 
-# in order to determine whether there has been any environmental.
-
+# The purpose of this code is to monitor aquatic vegetation, like Zostera noltii,
+# in Bourgneuf Bay, France.  This location was chosen because studies have been 
+# already done here in the past, such the one of Maria Laura Zoffoli et al. 
+# In this project I'll try to investigate the composition of the aquatic vegetation
+# looking for any changes over the years but within the same season, which has been identified
+# ad the most productive by the researchers mentioned above. 
 
 library(terra) # used for spatial data life raster or vector data
 library(imageRy) # handling raster images
@@ -8,7 +11,7 @@ library(ggplot2)# for graphs
 library(viridis) # alternative color palettes 
 library(patchwork) # for multiple grapsh on a single plot
 
-### 1st Case Study - Bourgneuf Bay, France - Zostera noltei
+
 
 # setting the working directory 
 setwd("C:/SEexam/bourgneuf")
@@ -76,18 +79,18 @@ rbn_25
 par(mfrow=c(3,2))
 # plotting the rbn_20 in true color
 im.plotRGB(rbn_20, 1,2,3)
-# plotting the rbn_20 whit NIR band in red
-im.plotRGB(rbn_20, 4,2,3)
+# plotting the rbn_20 whit NIR band in blue
+im.plotRGB(rbn_20, 1,2,4)
 
 # plotting the rbn_23 in true color
 im.plotRGB(rbn_23, 1,2,3)
-# plotting the rbn_23 whit NIR band in red
-im.plotRGB(rbn_23, 4,2,3)
+# plotting the rbn_23 whit NIR band in blue
+im.plotRGB(rbn_23, 1,2,4)
 
 # plotting the rbn_25 in true color
 im.plotRGB(rbn_25, 1,2,3)
-# plotting the rbn_25 whit NIR band in red
-im.plotRGB(rbn_25, 4,2,3)
+# plotting the rbn_25 whit NIR band in blue
+im.plotRGB(rbn_25, 1,2,4)
 
 dev.off()
 
