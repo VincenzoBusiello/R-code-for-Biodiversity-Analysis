@@ -1,0 +1,182 @@
+\documentclass{beamer} % for presentations 
+\usepackage{graphicx} % package for images
+\usepackage{listings} % package for code lines
+\usepackage{multicol}
+\usepackage{url}
+
+\definecolor{myred}{rgb}{0.6,0,0}
+
+
+\usetheme{Dresden}
+\usecolortheme{seahorse}
+
+\title{Quantifying aquatic vegetation with NDAVI}
+\author{Vincenzo Busiello \\ https://github.com/VincenzoBusiello}
+\date{28/01/2026}
+
+\begin{document}
+
+\maketitle
+
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Outline}    
+    \tableofcontents[currentsection]
+\end{frame}
+}
+
+\section{Bourgneuf Bay}
+
+        \begin{frame}{Bourgneuf Bay}
+            \begin{multicols}{2}
+                \begin{itemize}
+                    \item {\scriptsize French Atlantic Coast} 
+                    \item {\scriptsize Department of Loire-Atlantique}
+                    \item {\scriptsize Wetland zone protected by the Ramsar Convention}
+                \end{itemize}
+            \columnbreak
+                \begin{center}
+                    \includegraphics[width=0.40\textwidth]{bay_view.jpg}
+                \end{center}
+            \end{multicols}
+        \end{frame}
+
+        \begin{frame}{Why this site?}
+            \begin{multicols}{2}                
+                \begin{center}
+                    \includegraphics[width=0.40\textwidth]{bourgneuf_sat.png}
+                \end{center}
+            \columnbreak
+                \begin{itemize}
+                    \item The presence of Zostera noltii and other photosynthetic aquatic organisms                    \item Site protected by the Noirmoutier island
+                    \item Already used for the same type of studies
+                \end{itemize}
+            \end{multicols}
+        \end{frame}
+
+
+\section{Codes and Data}
+
+
+        \begin{frame}{Data}
+            \begin{center}
+            All the images used for this project were downloaded from the website \url{https://browser.dataspace.copernicus.eu} using the follow criteria:
+                \begin{itemize}
+                    \item An area was selected that covers a portion of the entire geographical site previously studied (Maria Laura Zoffoli et al.).
+                    \item The time period is the same for all three years chosen: September.
+                    \item Cloud cover above of 30\%
+                    \item Download of bands 2,3,4 and 8 in .tiff extension in 8 bit
+                \end{itemize}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{Normalized Difference Aquatic Vegetation Index}
+            \begin{equation}
+                NDAVI = \frac{(NIR - BLUE)}{(NIR + BLUE)}
+            \end{equation}
+        \end{frame}
+        
+        \begin{frame}{Packages}
+            \begin{itemize}
+                \item    \texttt{library(terra)} 
+                \item    \texttt{library(imageRy)} 
+                \item    \texttt{library(viridis)}
+                \item    \texttt{library(ggplot2)} 
+                \item    \texttt{library(patchwork)}
+            \end{itemize}
+        \end{frame}
+        
+            \begin{frame}{Functions}
+                \begin{multicols}{2}
+                    \begin{itemize}
+                        \item    \texttt{setwd()} 
+                        \item    \texttt{rast()} 
+                        \item    \texttt{c()}
+                        \item    \texttt{par()} 
+                        \item    \texttt{im.plotRGB()}
+                        \item    \texttt{plot()}
+                        \item    \texttt{im.classify()}
+                        \item    \texttt{ncell()}
+                        \item    \texttt{freq()}
+                \columnbreak
+                        \item    \texttt{data.frame()}
+                        \item    \texttt{View()}
+                        \item    \texttt{ggplot()}
+                        \item    \texttt{aes()}
+                        \item    \texttt{geom_bar()}
+                        \item    \texttt{scale_color_viridis_d()}
+                        \item    \texttt{ylim()}
+                        \item    \texttt{xlab()}
+                        \item    \texttt{ylab()}
+                    \end{itemize}
+                \end{multicols}
+        \end{frame}
+
+        \begin{frame}{Creation of 4 bands Images}
+            \lstinputlisting[language=R, firstline=50, lastline=59, commentstyle=\color{myred}, basicstyle=\footnotesize]{ScriptEsame.R}
+        \end{frame}
+        
+        \begin{frame}{TrueColor vs. FalseColor - Code}
+            \lstinputlisting[language=R, firstline=76, lastline=90, commentstyle=\color{myred}, basicstyle=\footnotesize]{ScriptEsame.R}
+        \end{frame}
+
+        \begin{frame}{TrueColor vs. FalseColor - Images}
+            \begin{center}
+                \includegraphics[width=0.55\textwidth]{falsecolorcomp.png}
+            \end{center}
+        \end{frame}
+
+
+        \begin{frame}{NDAVI - Code}
+            \lstinputlisting[language=R, firstline=94, lastline=107, commentstyle=\color{myred}, basicstyle=\footnotesize]{ScriptEsame.R}
+        \end{frame}
+
+        \begin{frame}{NDAVI - Images}
+            \begin{center}
+            \begin{multicols}{3}
+                \includegraphics[width=0.3\textwidth]{FalseColor20.png}
+                \includegraphics[width=0.3\textwidth]{FalseColor23.png}
+                \includegraphics[width=0.3\textwidth]{FalseColor25.png}
+            \end{multicols}
+            \end{center}
+        \end{frame}
+
+        \begin{frame}{Classification - Code}
+            \lstinputlisting[language=R, firstline=121, lastline=125, commentstyle=\color{myred}, basicstyle=\tiny]{ScriptEsame.R}
+        \end{frame}
+
+
+        \begin{frame}{Percentages of Covers for each Class}
+            \begin{center}
+                \includegraphics[width=0.5\textwidth]{Tabella.png}
+            \end{center} 
+        \end{frame}
+        
+        \begin{frame}{Surfaces Classification}
+            \begin{center}
+                \includegraphics[width=1\textwidth]{bars.png}
+            \end{center}
+        \end{frame}
+
+
+\section{Conclusions}
+
+        \begin{frame}{Conclusioni}
+            \begin{itemize}
+                 
+            \end{itemize}
+        \end{frame}
+
+        
+\section{Websites}
+        \begin{frame}{Websites}
+            \begin{itemize}
+                \item \url{https://browser.dataspace.copernicus.eu} \\
+                \item \url{https://en.wikipedia.org/wiki/Bay_of_Bourgneuf} \\
+                \item \url{https://www.earthdata.nasa.gov/learn/trainings/spectral-indices-land-aquatic-applications}\\
+            \end{itemize}  
+        \end{frame}
+
+
+\end{document}
