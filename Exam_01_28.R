@@ -21,10 +21,10 @@ setwd("C:/SEexam/bourgneuf")
 list.files()
 
 # creating a single object whit 4 images, which every one is a specific band, as follows:
-# 1) Red
-# 2) Blue
-# 3) Green
-# 4) NIR
+# 1) Red   -> bn20_4, bn23_4, bn25_4
+# 2) Blue  -> bn20_3, bn23_3, bn25_3
+# 3) Green -> bn20_2, bn23_2, bn25_2
+# 4) NIR   -> bn20_8, bn23_8, bn25_8
 
 
 
