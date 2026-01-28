@@ -1,6 +1,6 @@
 
 # trying Water-Adjusted Vegetation Index - WAVI
-L = 0.7
+L = 0.5
 
 rbn_20_dif = rbn_20[[4]] - rbn_20[[3]]
 rbn_20_sum = rbn_20[[4]] + rbn_20[[3]]
