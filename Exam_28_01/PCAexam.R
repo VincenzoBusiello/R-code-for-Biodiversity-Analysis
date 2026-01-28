@@ -1,4 +1,6 @@
-
+pairs(rbn_20)
+pairs(rbn_23)
+pairs(rbn_25)
 
 # calculating pca
 
